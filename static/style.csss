@@ -1,0 +1,119 @@
+/* Apply styles to the body element */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 20px;
+    padding: 0;
+}
+
+/* Style for the header */
+h1 {
+    color: #000080;
+}
+
+/* Style for the Results heading */
+.results-heading {
+                  color: #000080;
+                  text-align: center;
+                  font-size: 36px;
+}
+/* Style for the Score */
+#scoreHeading {
+    color: #FF4500;
+    font-size: 40px; /* Increase font size for score */
+    font-weight: bold;
+    margin-bottom: 15px; /* Add some space between score and other details */
+    margin-top: 5px;   
+}
+
+/* Style for Total Correct Guesses and Total Wrong Guesses */
+.correct-guesses, .wrong-guesses {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.correct-guesses {
+    color: green;
+}
+
+.wrong-guesses {
+    color: red;
+}
+
+/* Style for forms */
+form {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+/* Style for buttons */
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Style for radio options buttons */
+input[type="radio"] {
+    transform: scale(1.3); /* Increase the size of the radio buttons if you wish */
+}
+
+/* style for Next Question */
+.next-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px; /* Add some space from the options */
+    font-weight: bold; /* Make it a little bold */
+}
+
+
+/* Style for Previous*/
+.previous-button {
+    background-color: #008CBA; /* Blue */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px; 
+    font-weight: bold; 
+}
+
+/* Add styles for the score summary section */
+.score-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.score {
+    width: 45%;
+}
+
+/* Add styles for the Start Another Round button */
+.start-round-btn {
+    background-color: #08A04B;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+}

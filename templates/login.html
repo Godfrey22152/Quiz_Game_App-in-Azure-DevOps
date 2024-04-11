@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_style.css') }}">
+    <style>
+        body {
+            background-image: url("../static/images/loginimage.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .return-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .return-home a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="logincontent">
+
+        <div class="logintop">
+            <h1>Login</h1>
+        </div>
+
+        <div class="loginbottom">
+
+            <form action="{{ url_for('login')}}" method="post" autocomplete="on">
+
+                <div class="msg">{{ msg }}</div>
+
+                <input type="text" name="username" placeholder="Enter Your Username" class="textbox" id="username" required>
+
+                <input type="password" name="password" placeholder="Enter Your Password" class="textbox" id="password" required>
+
+                <input type="submit" class="btn" value="Login">
+
+            </form>
+
+            <p class="worddark">New to this page? <a class="worddark" href="{{ url_for('create_account')}}">Create Account here</a></p>
+
+            <!-- Add this section after the form -->
+            {% if show_return_home %}
+                <div class="return-home">
+                    <a class="worddark" href="{{ url_for('welcome') }}">Return Home</a>
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

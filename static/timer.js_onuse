@@ -1,0 +1,40 @@
+// Retrieve the countdown date from session storage or set it to now + 25 minutes (1500 seconds)
+var countDownDate = sessionStorage.getItem('countDownDate');
+
+if (!countDownDate) {
+    countDownDate = new Date();
+    countDownDate.setSeconds(countDownDate.getSeconds() + 1500); // 25 minutes in seconds
+    sessionStorage.setItem('countDownDate', countDownDate);
+} else {
+    countDownDate = new Date(countDownDate);
+}
+
+// Set an interval to update the timer every second
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+
+    // Calculate minutes and seconds remaining
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the timer
+    document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+
+    if (distance < 0) {
+        clearInterval(x);
+        // Display a message when time is up
+        document.getElementById("timer").innerHTML = "Time's Up! Thank you for Giving Us a Trial!!";
+        startAnotherRound(); // Automatically start another round when time is up
+    }
+}, 1000);
+
+// Function to start another round
+function startAnotherRound() {
+    window.location.href = '/start_round';
+}
+
+// Function to play a new quiz
+function playNewQuiz() {
+    window.location.href = '/select_quiz';
+}

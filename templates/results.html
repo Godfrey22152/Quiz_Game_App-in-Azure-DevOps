@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="{{ url_for('static', filename='timer.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='results_style.css') }}"> <!-- Include the CSS file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="{{ url_for('start_round', quiz_id=session['selected_quiz']) }}" onclick="resetTimer()">Play Another Round</a>
+        <a href="{{ url_for('dumps') }}">Play Another Quiz</a>
+        <a href="{{ url_for('variety') }}">Main Menu</a>
+    </div>
+
+    <h1 class="results-heading">Results</h1>
+    <div class="score-summary">
+        <div class="score">
+            <h2 id="scoreHeading">Score: {{ score }}%</h2>
+            <div id="scoreComment">
+                {% if score > 50 %}
+                    <p style="color: green; font-weight: bold;">Congratulations, You Passed, Keep it up</p>
+                {% elif score < 50 %}
+                    <p style="color: red; font-size: 25; font-weight: bold;">Failed!!! Your Score is Below Average</p>
+                {% else %}
+                    <p style="color: 151B54; font-size: 25; font-weight: bold;">Fairly Good!!! Average Score, Put in More Effort</p>
+                {% endif %}
+            </div>
+            <p class="correct-guesses">Total Correct Answers: {{ total_correct }}</p>
+            <p class="wrong-guesses">Total Wrong Answers: {{ total_wrong }}</p>
+        </div>
+    </div>
+    <ul>
+        {% for result in results_data %}
+            <li>
+                <p>{{ result.question_num }}. {{ result.question }}</p>
+                <ul>
+                    {% for option in result.options %}
+                        <li>{{ option }}</li>
+                    {% endfor %}
+                </ul>
+                {% if result.is_correct %}
+                    <p style="color: green; font-weight: bold;">Correct Answer: {{ result.correct_option }} &#10004;</p> <!-- &#10004; is the checkmark symbol -->
+                {% else %}
+                    <p style="color: red; font-weight: bold;">Your Selected Answer: {{ result.user_guess }} &#10060;</p> <!-- &#10060; is the 'X' symbol -->
+                    <p style="color: green; font-weight: bold;">Correct Answer: {{ result.correct_option }}</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

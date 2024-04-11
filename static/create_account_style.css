@@ -1,0 +1,145 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.create_accountcontent {
+    display: flex;
+    bacground-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+}
+
+.create_accounttop {
+    background-color: #007BFF;
+    color: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    width: 700px;
+}
+
+.create_accountbottom {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 0 0 8px 8px;
+    width: 700px;
+
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    align-self: flex-start; /* Align to the top of the column */
+    margin-bottom: 20px; /* Add space between the h1 and the form */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.msg {
+    color: #007BFF;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.msg a {
+    display: inline-block;
+    padding: 5px 10px; /* Adjust padding as needed */
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.msg a:hover {
+    background-color: #ff0000;
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.textbox {
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #007BFF;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.btn {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.worddark {
+    text-align: center;
+    margin-top: 10px;
+    color: #333;
+    font-weight: bold;
+    font-size: 18px;
+    
+}
+
+.worddark a {
+    display: inline-block;
+    padding: 5px 10px; /* Adjust padding as needed */
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.worddark a:hover {
+    background-color: #ff0000;
+    transform: scale(1.05); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the navigation bar */
+.navbar {
+    overflow: hidden;
+    background-color: #c04000; /* Updated background color to green */
+    font-weight: bold; /* Set text font to bold */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+.navbar a {
+    float: left;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s; /* Add transition for smoother hover effect */
+}
+
+.navbar a:hover {
+    background-color: #ddd; /* Darker green on hover */
+    color: black;
+}

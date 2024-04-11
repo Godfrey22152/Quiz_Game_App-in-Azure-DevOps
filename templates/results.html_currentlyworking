@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="{{ url_for('static', filename='timer.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> <!-- Include the CSS file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <h1 class="results-heading">Results</h1>
+    <div class="score-summary">
+        <div class="score">
+            <h2 id="scoreHeading">Score: {{ score }}%</h2>
+            <div id="scoreComment">
+                {% if score > 50 %}
+                    <p style="color: green; font-weight: bold;">Congratulations, You Passed, Keep it up</p>
+                {% elif score < 50 %}
+                    <p style="color: red; font-weight: bold;">Failed!!! Your Score is Below Average</p>
+                {% else %}
+                    <p style="color: 151B54; font-weight: bold;">Fairly Good!!! Average Score, Put in More Effort</p>
+                {% endif %}
+            </div>
+            <p class="correct-guesses">Total Correct Answers: {{ total_correct }}</p>
+            <p class="wrong-guesses">Total Wrong Answers: {{ total_wrong }}</p>
+        </div>
+    </div>
+    <ul>
+        {% for result in results_data %}
+            <li>
+                <p>{{ result.question_num }}. {{ result.question }}</p>
+                <ul>
+                    {% for option in result.options %}
+                        <li>{{ option }}</li>
+                    {% endfor %}
+                </ul>
+                {% if result.is_correct %}
+                    <p style="color: green; font-weight: bold;">Correct Answer: {{ result.correct_option }} &#10004;</p> <!-- &#10004; is the checkmark symbol -->
+                {% else %}
+                    <p style="color: red; font-weight: bold;">Your Selected Answer: {{ result.user_guess }} &#10060;</p> <!-- &#10060; is the 'X' symbol -->
+                    <p style="color: green; font-weight: bold;">Correct Answer: {{ result.correct_option }}</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <form action="/start_round" method="get">
+        <button type="submit" id="startRoundBtn" class="start-round-btn">Start Another Round</button>
+    </form>
+
+<script>
+    // Retrieve the score from your Flask variable (assuming it's available)
+    var score = {{ score }};
+    var scoreHeading = document.getElementById('scoreHeading');
+    var scoreComment = document.getElementById('scoreComment');
+
+    // Change the color based on the score value
+    if (score > 50) {
+        scoreHeading.style.color = 'green';
+        scoreComment.innerHTML = '<p style="color: green; font-weight: bold;">Congratulations, You Passed, Keep it up</p>';
+    } else if (score < 50) {
+        scoreHeading.style.color = 'red';
+        scoreComment.innerHTML = '<p style="color: red; font-weight: bold;">Failed!!! Your Score is Below Average</p>';
+    } else {
+        scoreHeading.style.color = '#151B54';
+        scoreComment.innerHTML = '<p style="color: #151B54; font-weight: bold;">Fairly Good!!! Average Score, Put in More Effort</p>';
+    }
+</script>
+</body>
+</html>

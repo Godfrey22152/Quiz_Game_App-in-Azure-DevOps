@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='variety.css') }}">
+    <style>
+        body {
+            background-image: url("../static/images/varietyimage.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Welcome to Godfrey's Trivia Quiz App</h1>
+            </div>
+            <div class="sidebar-items">
+                <ul>
+                    <li class="active"><a href="{{url_for('variety')}}">QUIZ</a></li>
+                    <li><a href="#">RESULTS</a></li>
+                    <li><a href="#">RATE US</a></li>
+                    <li><a href="{{url_for('logout')}}">LOG OUT</a></li>
+                </ul>
+            </div>
+            <div class="social-links">
+                <a href="#" target="_blank"><img src="{{url_for('static', filename='images/facebook-icon.png')}}" alt="Facebook"></a>
+                <a href="#" target="_blank"><img src="{{url_for('static', filename='images/twitter-icon.png')}}" alt="Twitter"></a>
+                <a href="#" target="_blank"><img src="{{url_for('static', filename='images/linkedin-icon.png')}}" alt="LinkedIn"></a>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="topbar">
+                <h2>Welcome to Godfrey's Trivia Quiz Application!</h2>
+                <p>Unlock your potential in the digital world.</p>
+                <a class="explore-button" href="{{ url_for('dumps')}}">EXPLORE OUR TESTS</a>                                                         
+            </div>
+
+            <div class="contentbar">
+                <div class="msg">{{ msg }}</div>
+                <!-- Additional features or content can be added here -->
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
+

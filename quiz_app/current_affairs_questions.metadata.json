@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"14d34b5d2ef64b20a5fd31043b4cfcf8","collectionName":"current_affairs_questions","type":"collection"}

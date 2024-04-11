@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Round</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='start_round_style.css') }}"> <!-- Add a CSS file for styling -->
+    <script src="{{ url_for('static', filename='timer.js') }}"></script> <!-- Include the timer script -->
+</head>
+<body>
+    <div class="container">
+        <h1>Start Round</h1>
+        <div id="timer"></div> <!-- Display the timer here -->
+        <form id="quizForm" action="{{ url_for('start_round', quiz_id=quiz_id) }}" method="post">
+            <input type="hidden" name="quiz_id" value="{{ quiz_id }}">
+            {% if current_question_num %}
+                <input type="hidden" name="current_question_num" value="{{ current_question_num }}">
+            {% endif %}
+            {% for question_num, question in enumerate(g.questions, start=1) %}
+                <div class="question">
+                    <h2>Question {{ question_num }} of {{ g.questions|length }}</h2>
+                    <p>{{ question.text }}</p>
+                    {% for option in question.options %}
+                        <label>
+                            <input type="radio" name="answer" value="{{ option }}"> {{ option }}<br>
+                        </label>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div class="buttons">
+                {% if current_question_num and current_question_num > 1 %}
+                    <button type="button" class="previous-button" onclick="goToQuestion({{ current_question_num-1 }})">Previous</button>
+                {% endif %}
+                <button type="button" class="next-button" onclick="goToQuestion({{ current_question_num+1 }})">Next</button>
+                {% if current_question_num == g.questions|length %}
+                    <button type="submit" class="submit-button">Submit Quiz</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function goToQuestion(question_num) {
+            // Update the hidden input field with the current question number
+            document.querySelector('input[name="current_question_num"]').value = question_num;
+
+            // Submit the form
+            document.getElementById('quizForm').submit();
+        }
+    </script>
+</body>
+</html>

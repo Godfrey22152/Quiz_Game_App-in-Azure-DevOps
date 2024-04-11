@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to the Trivia Quiz Game</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='welcome_style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+    <h1>Welcome to Godfrey's Trivia Quiz Game</h1>
+    <p>This is an Exam Preparation Platform that enables Users to effectively practice and prepare for any kind of exam. Kindly Signup or Login to play any game of your choice</p>
+
+    <!-- Flash Messages -->
+    <div class="flash">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Create Account Dropdown -->
+    <div class="dropdown">
+        <button class="dropbtn">Create Account</button>
+        <div class="dropdown-content">
+            <form action="/create_account" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+
+                <label for="user_id">User ID:</label>
+                <input type="text" id="user_id" name="user_id" required><br>
+
+                <input type="submit" value="Create Account">
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign In Dropdown -->
+    <div class="dropdown">
+        <button class="dropbtn">Login</button>
+        <div class="dropdown-content">
+            <form action="/sign_in" method="post">
+                <label for="existing_email">Email:</label>
+                <input type="email" id="existing_email" name="existing_email" required><br>
+
+                <label for="existing_user_id">User ID:</label>
+                <input type="text" id="existing_user_id" name="existing_user_id" required><br>
+
+                <input type="submit" value="Sign In">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Add functionality to show/hide dropdown content
+        document.querySelectorAll('.dropbtn').forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.stopPropagation();
+                this.nextElementSibling.classList.toggle('show');
+            });
+        });
+
+        // Close dropdown when user clicks outside
+        document.body.addEventListener('click', function(event) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show') && !event.target.closest('.dropdown')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        });
+        
+        // Add event listener for form submission
+        document.querySelectorAll('.dropdown-content form').forEach(function(form) {
+            form.addEventListener('submit', function() {
+                var dropdown = this.parentElement;
+                dropdown.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>

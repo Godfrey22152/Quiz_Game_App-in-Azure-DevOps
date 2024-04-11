@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the Trivia Quiz Game</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='welcome.css') }}">
+</head>
+<body>
+    <div class="hero">
+        <div class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <h1>Welcome to Godfrey's Trivia Quiz Game</h1>
+        <p>This is an Exam Preparation Platform that enables Users to effectively practice and prepare for any kind of exam. Kindly Signup or Login to play any game of your choice</p>
+
+        <!-- Dynamic Background Animation -->
+        <div class="dynamic-bg"></div>
+
+        <!-- Create Account and Login Buttons -->
+        <div class="cta-buttons">
+            <a class="cta-button" href="{{ url_for('create_account') }}">Create Account</a>
+            <a class="cta-button" href="{{ url_for('login')}}">Login</a>
+        </div>
+
+        <!-- Quiz Countdown -->
+        <div class="countdown" id="quiz-countdown"></div>
+    </div>
+
+    <div id="contact-us" class="section">
+        <h2>Contact Us</h2>
+        <p>Connect with us on social media:</p>
+        <div class="social-links">
+            <a href="#" target="_blank" class="social-link">
+                <img src="{{url_for('static', filename='images/facebook-icon.png')}}" alt="Facebook">
+                Facebook
+            </a>
+            <a href="#" target="_blank" class="social-link">
+                <img src="{{url_for('static', filename='images/twitter-icon.png')}}" alt="Twitter">
+                Twitter
+            </a>
+            <a href="#" target="_blank" class="social-link">
+                <img src="{{url_for('static', filename='images/linkedin-icon.png')}}" alt="LinkedIn">
+                LinkedIn
+            </a>
+        </div>
+    </div>
+
+    <!-- Testimonial Carousel -->
+    <div class="testimonial-section">
+        <h2>What Our Users Say</h2>
+        <div class="testimonial-carousel" id="testimonial-carousel">
+            <div class="testimonial-item">
+                <img src="{{ url_for('static', filename='images/avatar1.jpg') }}" alt="User Avatar">
+                <h3>John Doe</h3>
+                <div class="rating">
+                    ★★★★★
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div class="testimonial-item">
+                <img src="{{ url_for('static', filename='images/avatar2.jpg') }}" alt="User Avatar">
+                <h3>Isaac FineBoy</h3>
+                <div class="rating">
+                    ★★★★☆
+                </div>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            
+            <div class="testimonial-item">
+                <img src="{{ url_for('static', filename='images/avatar3.jpg') }}" alt="User Avatar">
+                <h3>Angel Chidimna</h3>
+                <div class="rating">
+                    ★★★★☆
+                </div>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        </div>
+        <div class="navigation-indicator" id="navigation-indicator"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='javascripts/welcome.js') }}"></script>
+</body>
+</html>

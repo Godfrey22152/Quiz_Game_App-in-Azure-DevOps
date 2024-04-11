@@ -1,0 +1,109 @@
+/* login_style.css */
+
+body {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.logincontent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.logintop {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.loginbottom {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 0 0 8px 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.msg {
+    color: #007BFF;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.textbox {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #007BFF;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.btn {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.worddark {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    font-size: 16px;
+}
+
+.worddark a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+.worddark a:hover {
+    color: #ff0000;
+}
+
+.return-home {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.return-home a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+.return-home a:hover {
+    color: #ff0000;
+}
+

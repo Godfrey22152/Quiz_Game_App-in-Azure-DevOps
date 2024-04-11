@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question {{ question_num }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='question_style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='timer.js') }}"></script>
+</head>
+<body>
+    <div id="timer"></div>
+
+    <!-- Custom notification container -->
+    <div id="customNotification" class="custom-notification-container"></div>
+
+    <header>
+        <h1>Question {{ question_num }} of {{ total_questions }}</h1>
+    </header>
+
+    <div class="question-container">
+        <main>
+            <p class="question-text">{{ question }}</p>
+
+            <form id="quizForm" method="post" action="{{ url_for('question', question_num=question_num) }}">
+                {% for option in options_list %}
+                    <input type="radio" name="answer" value="{{ option[0] }}" id="{{ option[0] }}">
+                    <label for="{{ option[0] }}">{{ option }}</label><br>
+                {% endfor %}
+
+                <input type="button" value="{% if question_num == total_questions %}Submit Quiz{% else %}Next Question{% endif %}" onclick="nextQuestion()" class="styled-button">
+            </form>
+
+            {% if question_num > 1 %}
+                <form method="get" action="{{ url_for('question', question_num=question_num-1) }}">
+                    <input type="submit" value="Previous" class="styled-button">
+                </form>
+            {% endif %}
+        </main>
+    </div>
+
+    <footer>
+        <!-- Add any footer content here -->
+    </footer>
+</body>
+</html>

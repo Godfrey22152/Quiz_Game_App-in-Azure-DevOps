@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Quiz App - Dumps</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dumps.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>Explore Available Test Dumps</h1>
+            </div>
+            <div class="sidebar-items">
+                <ul>
+                    <li><a href="{{url_for('variety')}}">QUIZ</a></li>
+                    <li><a href="#">RESULTS</a></li>
+                    <li><a href="#">RATE US</a></li>
+                    <li><a href="{{url_for('logout')}}">LOG OUT</a></li>
+                </ul>
+            </div>
+            <div class="social-links">
+                <a href="#" target="_blank"><img src="{{url_for('static', filename='images/facebook-icon.png')}}" alt="Facebook"></a>
+                <a href="#" target="_blank"><img src="{{url_for('static', filename='images/twitter-icon.png')}}" alt="Twitter"></a>
+                <a href="#" target="_blank"><img src="{{url_for('static', filename='images/linkedin-icon.png')}}" alt="LinkedIn"></a>
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="topbar">
+                <h2>Explore Our Test Collection</h2>
+                <p class="dump-instruction">Choose a quiz to test your knowledge!</p>
+                <a href="{{url_for('variety')}}" class="return-back-button">&#171;&#171;Go Back</a>
+            </div>
+
+            <div class="container">
+                <ul class="dump-list">
+                    {% for dump in dumps %}
+                        <li class="dump-item">
+                            <div class="dump-info">
+                                <h3>{{ dump.title }}</h3>
+                                <p class="dump-description">{{ dump.description }}</p>
+                                <p class="num_dumps">{{ dump.num_dumps }}</p>
+                            </div>
+                            <a href="{{ url_for('select_quiz', selected_quiz=dump.category) }}" class="play-button">Play Quiz</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </main>
+
+    </div>
+
+</body>
+
+</html>
+
+

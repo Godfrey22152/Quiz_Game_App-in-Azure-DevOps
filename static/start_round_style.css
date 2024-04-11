@@ -1,0 +1,69 @@
+/* Add basic styling for the container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for questions */
+.question {
+    margin-bottom: 20px;
+}
+
+/* Style for question count */
+.question h2 {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Style for options */
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Style for buttons */
+.buttons {
+    text-align: center;
+}
+
+.previous-button,
+.next-button,
+.submit-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.previous-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.next-button {
+    background-color: #008CBA;
+    color: white;
+}
+
+.submit-button {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Add hover effect to buttons */
+.previous-button:hover,
+.next-button:hover,
+.submit-button:hover {
+    opacity: 0.8;
+}

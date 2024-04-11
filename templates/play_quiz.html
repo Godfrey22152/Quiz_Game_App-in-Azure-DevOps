@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='play_quiz_style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ questions.title }}</h1>
+            <p>Duration: {{ questions.duration }} minutes</p>
+            <p>Number of Questions: {{ questions.num_questions }}</p>
+        </header>
+        <main>
+            <form action="{{ url_for('start_round', quiz_id=questions['quiz_id']) }}" method="post">
+                <button type="submit" class="start-button" id="playQuizButton">Start Quiz</button>
+            </form>
+            <a href="{{ url_for('select_quiz', selected_quiz=questions.category) }}" class="return-back-button">&#171;&#171; Go Back</a>
+        </main>
+    </div>
+
+    <!-- Include the script for the timer at the end of the body, wrapped in a DOMContentLoaded event listener -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var playQuizButton = document.getElementById('playQuizButton');
+            if (playQuizButton) {
+                playQuizButton.addEventListener('click', resetTimer);
+            }
+        });
+    </script>
+    <script src="{{ url_for('static', filename='timer.js') }}"></script>
+</body>
+</html>

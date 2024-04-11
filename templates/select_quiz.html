@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ quiz_details.title }} Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='select_quiz_style.css') }}"> <!-- Add a CSS file for styling -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ quiz_details.title }} Quiz</h1>
+            <p class="quiz-instruction">Choose a quiz to test your knowledge!</p>
+        </header>
+
+        <main>
+            <ul class="quiz-list">
+                {% for quiz in quiz_details %}
+                    <li class="quiz-item">
+                        <div class="quiz-info">
+                            <h2>{{ quiz.title }}</h2>
+                            <p class="quiz-description">{{ quiz.description }}</p>
+                        </div> 
+                        <a class="play-button" href="{{ url_for('play_quiz', quiz_id=quiz['quiz_id']) }}">Play Quiz</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <a href="{{url_for('dumps')}}" class="return-back-button">&#171;&#171;Go Back</a>
+        </main>
+    </div>
+</body>
+</html>
