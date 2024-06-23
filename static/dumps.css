@@ -13,25 +13,27 @@ body {
 .container {
     display: flex;
     height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
 }
 
 .sidebar {
-    width: 250px;
+    width: 20%;
     background-color: #004225;
     color: #fff;
-    padding: 20px;
-    box-sizing: border-box;
+    padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .sidebar-header h1 {
-    font-size: 30px;
-    margin-bottom: 40px;
+    font-size: 25px;
+    margin-bottom: 10px;
     color: #f0f0f0;
+    text-align: center;
+    font-weight: bold;
 }
-
 
 .sidebar-items ul {
     list-style-type: none;
@@ -39,8 +41,8 @@ body {
 }
 
 .sidebar-items ul li {
-    margin-bottom: 30px;
-    margin-top: 30px;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 .sidebar-items ul li a {
@@ -73,91 +75,84 @@ body {
     height: 50px;
 }
 
-
 .content {
     flex: 1;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .topbar {
     background-color: #004225;
     color: #fff;
-    padding: 10px;
+    padding: 20px;
     margin-bottom: 20px;
     text-align: center;
-}
-
-.contentbar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    border-radius: 5px;
 }
 
 .dump-instruction {
-    color: #eaeee9; 
-    font-size: 1.3em; 
-    font-weight: bold;
-    text-align: center; 
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+.dumps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.dump-list-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .dump-list {
     list-style: none;
     padding: 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 20px;
 }
 
 .dump-item {
-    flex: 1;
-    background-color: #f9f9f9;
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 300px;
-    margin-bottom: 20px;
+    transition: transform 0.3s;
 }
 
-/* Add the following media query for responsiveness (optional) */
-@media screen and (max-width: 768px) {
-    .dump-list {
-        grid-template-columns: repeat(2, 1fr); /* Change to 2 columns on smaller screens */
-    }
-}
-
-.dump-info {
-    margin-bottom: auto;
-}
-
-.dump-info h2 {
-    color: #00a74a;
+.dump-item:hover {
+    transform: translateY(-5px);
 }
 
 .dump-info h3 {
     background-color: #004225;
     color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    margin-bottom: 0px;
-    margin-top: 0px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .dump-description {
-    font-size: 1.3em;
-    color: #0c0908;   
+    font-size: 1em;
+    color: #0c0908;
+    margin: 10px 0;
 }
 
 .num_dumps {
-    font-size: 1.3em;
+    font-size: 1em;
     font-weight: bold;
+    margin: 10px 0;
 }
 
 .play-button {
-    display: inline-block;
     padding: 10px 20px;
     font-size: 1em;
     font-weight: bold;
@@ -166,26 +161,19 @@ body {
     color: #fff;
     border: none;
     border-radius: 4px;
+    text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 30px;
-    align-self: center;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .play-button:hover {
     background-color: #ff0000;
-    transform: scale(1.05); 
+    transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.dump-item:hover {
-    transform: translateY(-5px);
-    transition: transform 0.3s;
-    bacground-color: #004225;
-}
-
 .return-back-button {
-    display: inline-flex; 
+    display: inline-flex;
     align-items: center; 
     padding: 10px 20px;
     font-size: 1.3em;
@@ -196,9 +184,8 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
     margin-top: 10px;
-    margin-right: 10px; 
 }
 
 .return-back-button::after {
@@ -208,6 +195,6 @@ body {
 
 .return-back-button:hover {
     background-color: #ff0000;
-    transform: scale(1.05); 
+    transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
