@@ -64,7 +64,7 @@ mongo_uri = os.environ.get('MONGO_URI')
 
 # Connect to MongoDB Atlas
 client = MongoClient(mongo_uri)
-client.server_info()  # Force connection on a request as the
+client.server_info()  
 print("Connected to MongoDB successfully!")
 
 # Access the "quiz_app" database
@@ -100,7 +100,7 @@ def healthz():
 @app.route('/ready')
 def ready():
     try:
-        client.server_info()  # Force connection on a request as the
+        client.server_info()  # Force connection on a request.
         return 'READY', 200
     except errors.ServerSelectionTimeoutError:
         return 'NOT READY', 500
