@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: mongo-config
 data:
-  mongo-url: mongodb+srv://godfreyifeanyi50:PjIXv3yewJmeT7BG@quiz-app.ve3naro.mongodb.net/?retryWrites=true&w=majority&appName=quiz-app
+  mongo-url: mongodb+srv://your-username:your-password@quiz-app.ve3naro.mongodb.net/?retryWrites=true&w=majority&appName=quiz-app
 
 ---
 apiVersion: apps/v1
