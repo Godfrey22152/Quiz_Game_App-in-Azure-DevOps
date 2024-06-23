@@ -9,7 +9,7 @@ COPY requirements.txt requirements.txt
 
 # Install dependencies and MongoDB client tools 
 RUN pip install --no-cache-dir -r requirements.txt \
-    && apk add --no-cache mongodb-tools 
+    && apk add --no-cache mongodb-tools cd
     
 # Copy the application code into the container at /app
 COPY app.py /app/app.py
