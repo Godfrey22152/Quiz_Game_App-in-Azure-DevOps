@@ -2,45 +2,47 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background: no-repeat center center fixed;
+    background-size: cover;
+    background-color: #f5f5f5; /* Fallback background color */
 }
 
 .create_accountcontent {
     display: flex;
-    bacground-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-
+    min-height: 100vh;
+    margin: 0px;
+    padding: 40px;
 }
 
 .create_accounttop {
     background-color: #007BFF;
     color: #fff;
-    margin-top: 20px;
-    padding: 20px;
+    padding: 15px; /* Reduced padding */
     text-align: center;
     border-radius: 8px 8px 0 0;
-    width: 700px;
+    width: 700px; /* Use a percentage for responsive design */
+    max-width: 1000px; /* Set a max width for larger screens */
 }
 
 .create_accountbottom {
     background-color: #fff;
-    padding: 20px;
+    padding: 15px; /* Reduced padding */
     border-radius: 0 0 8px 8px;
-    width: 700px;
-
+    width: 700px; /* Use a percentage for responsive design */
+    max-width: 1000px; /* Set a max width for larger screens */
 }
 
 h1 {
     margin: 0;
-    font-size: 24px;
-    align-self: flex-start; /* Align to the top of the column */
-    margin-bottom: 20px; /* Add space between the h1 and the form */
+    font-size: 35px;
+    align-self: flex-start;
+    margin-bottom: 5px;
 }
 
 form {
@@ -58,17 +60,17 @@ form {
 
 .msg a {
     display: inline-block;
-    padding: 5px 10px; /* Adjust padding as needed */
+    padding: 5px 10px;
     background-color: #007BFF;
     color: #fff;
     text-decoration: none;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .msg a:hover {
     background-color: #ff0000;
-    transform: scale(1.05); 
+    transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -89,11 +91,13 @@ form {
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #ff0000;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .worddark {
@@ -102,31 +106,29 @@ form {
     color: #333;
     font-weight: bold;
     font-size: 18px;
-    
 }
 
 .worddark a {
     display: inline-block;
-    padding: 5px 10px; /* Adjust padding as needed */
+    padding: 5px 10px;
     background-color: #007BFF;
     color: #fff;
     text-decoration: none;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .worddark a:hover {
     background-color: #ff0000;
-    transform: scale(1.05); 
+    transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Style for the navigation bar */
 .navbar {
     overflow: hidden;
-    background-color: #c04000; /* Updated background color to green */
-    font-weight: bold; /* Set text font to bold */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    background-color: #c04000;
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navbar a {
@@ -136,10 +138,31 @@ form {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    transition: background-color 0.3s; /* Add transition for smoother hover effect */
+    transition: background-color 0.3s;
 }
 
 .navbar a:hover {
-    background-color: #ddd; /* Darker green on hover */
+    background-color: #ddd;
     color: black;
+}
+
+@media (max-width: 600px) {
+    .create_accounttop, .create_accountbottom {
+        width: 95%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .textbox {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 12px;
+        font-size: 16px;
+    }
 }
