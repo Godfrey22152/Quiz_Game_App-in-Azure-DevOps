@@ -115,6 +115,6 @@ The agent is now ready and should be available in your Azure DevOps organization
 By following this guide, you have successfully set up a self-hosted agent using Vagrant and VirtualBox, configured it with necessary tools, and connected it to your Azure DevOps organization. You can now use this agent to run your CI/CD pipelines.
 
 ## Additional Resources
-[Azure DevOps Documentation](https://learn.microsoft.com/en-us/azure/devops/?view=azure-devops)
-[Vagrant Cheat Sheet](https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4)
+1. [Azure DevOps Documentation](https://learn.microsoft.com/en-us/azure/devops/?view=azure-devops)
+2. [Vagrant Cheat Sheet](https://gist.github.com/wpscholar/a49594e2e2b918f4d0c4)
 
