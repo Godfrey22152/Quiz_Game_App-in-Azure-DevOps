@@ -1,0 +1,114 @@
+# Quiz-App-CI-Pipeline.yaml
+
+pool:
+  name: quiz-app-agent-pool
+
+variables:
+  pwd: $(System.DefaultWorkingDirectory)
+  DOCKER_HUB_PAT: 'Your_Docker_Hub_PAT'
+  DOCKER_HUB_USER: 'Your_Docker_Hub_Username'
+
+steps:
+- script: |
+    # Install Python and pip
+    sudo apt-get update
+    sudo apt-get install -y python3 python3-pip
+
+    # Install Docker
+      sudo apt-get install -y docker.io
+      sudo systemctl start docker
+      sudo systemctl enable docker
+      sudo chmod 666 /var/run/docker.sock 
+
+    # Install Trivy
+    wget https://github.com/aquasecurity/trivy/releases/download/v0.27.1/trivy_0.27.1_Linux-64bit.deb
+    sudo dpkg -i trivy_0.27.1_Linux-64bit.deb
+
+    # Install Bandit
+    pip install bandit
+
+    # Install Pytest and Pytest-cov
+    pip install pytest pytest-cov
+  displayName: 'Install Dependencies and Tools'
+
+- script: |
+    pip install -r requirements.txt
+  displayName: 'Install Project Dependencies'
+
+- script: 'trivy fs --format json -o $(Build.ArtifactStagingDirectory)/trivy-fs-report.json --scanners vuln,misconfig --severity HIGH,CRITICAL .'
+  displayName: 'Trivy FS Scan'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Trivy FS Report'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/trivy-fs-report.json'
+    ArtifactName: 'Trivy-fs-report'
+
+- script: |
+    bandit -ll -ii -r . -f json -o $(Build.ArtifactStagingDirectory)/bandit_report.json
+  displayName: 'Static Code Analysis with Bandit'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Bandit Report'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/bandit_report.json'
+    ArtifactName: 'Bandit-Scan-Report'
+
+- script: |
+    export PYTHONPATH=$(pwd)
+    pytest --cov=app tests/ --junitxml=$(Build.ArtifactStagingDirectory)/pytest_report.xml --cov-report=xml:$(Build.ArtifactStagingDirectory)/coverage.xml
+  displayName: 'Unit Testing and Coverage with Pytest & Pytest-cov'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Test Results'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/pytest_report.xml'
+    ArtifactName: 'Pytest_Unit_Test-Report'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Code Coverage Results'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/coverage.xml'
+    ArtifactName: 'Code_Coverage-Report'
+
+- task: CopyFiles@2
+  displayName: 'Copy Manifest Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: 'Manifest_Files'
+    Contents: 'app-deployment.yaml'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Manifest_File'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/app-deployment.yaml'
+    ArtifactName: 'Manifest_File'
+
+- task: Docker@2
+  displayName: 'Docker build and push'
+  inputs:
+    containerRegistry: 'docker_con'
+    repository: 'godfrey22152/quiz-game-app'
+    tags: '3.0'
+
+- script: |
+    # Install Docker Scout CLI
+    curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s --
+    
+    # Login to Docker Hub using environment variables
+    echo $(DOCKER_HUB_PAT) | docker login -u $(DOCKER_HUB_USER) --password-stdin
+    
+    mkdir -p $(Build.ArtifactStagingDirectory)/Docker-Scout-Reports
+    
+    # Run Docker Scout quickview command
+    docker scout quickview godfrey22152/quiz-game-app:3.0 > $(Build.ArtifactStagingDirectory)/Docker-Scout-Reports/quickview_scan_report.sarif.json
+    
+    # Run Docker Scout CVEs command
+    docker scout cves godfrey22152/quiz-game-app:3.0 --format sarif --only-severity critical,high > $(Build.ArtifactStagingDirectory)/Docker-Scout-Reports/cves_scan_report.sarif.json
+  displayName: 'Docker Image Scan with Docker Scout'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Docker Scout Image Reports'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Docker-Scout-Reports'
+    ArtifactName: 'Image-Scan-Reports'
