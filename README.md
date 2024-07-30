@@ -41,6 +41,7 @@ Quiz-Game-App/
 ├── .env
 ├── app.py
 ├── README.md
+```
 
 ### Directory and File Descriptions
 
@@ -48,7 +49,7 @@ Quiz-Game-App/
   - **Quiz-App-CI-Pipeline.yaml**: YAML file for the CI pipeline configuration.
   - **Self-Hosted-Agent/Vagrantfile**: Configuration file for setting up a self-hosted agent using Vagrant.
 
-- **Monitoring_Setup//**: Contains a detailed README.md file for setting up self-hosted Prometheus and Grafana to monitor the deployed application in the Azure Kubernetes Service (AKS) cluster. 
+- **Monitoring_Setup/**: Contains a detailed README.md file for setting up self-hosted Prometheus and Grafana to monitor the deployed application in the Azure Kubernetes Service (AKS) cluster. 
   - **README.md**: README.md file for setting up a Prometheus and Grafana to monitor the deployed application in the Azure Kubernetes Service (AKS) cluster. 
 
 - **Manifest_files/**: Contains Kubernetes manifest files for deploying the application.
@@ -86,7 +87,7 @@ Quiz-Game-App/
 - **.env**: Environment variables file for configuring the Flask application.
 
 - **app.py**: Main Python file for the Flask application, containing routes and logic for the quiz functionality.
-```
+  
 ## Features
 
 - Account Management Functionality: Users can create accounts, log in, and log out.
@@ -97,6 +98,7 @@ Quiz-Game-App/
 - Dockerized application for easy deployment.
 - CI/CD pipeline setup using Azure DevOps.
 - Kubernetes Deployment: Deployable to AKS using Kubernetes manifests.
+- Monitoring-Setup: self-hosted Prometheus and Grafana to monitor your Azure Kubernetes Service (AKS) cluster.
 
 ## Getting Started
 
@@ -110,7 +112,7 @@ To get started with the project, follow these steps:
 - Vagrant (Used for self-hosted agent in azure)
 - Kubernetes (Azure)
 - Azure DevOps
--  Prometheus and Grafana 
+- Prometheus and Grafana 
 
 ### Setup
 
@@ -148,7 +150,7 @@ The project includes a CI/CD pipeline setup using Azure DevOps. Follow these ste
 - Use automatic triggers for continuous deployment.
 - After successful deployment in the kubernetes cluster, go to ingress services and find the application ingress service external IP assigned to the application and access the application on the browser.
 
-## Monitoring-Setup Directory:
+## Monitoring_Setup Directory:
 Contains a detailed step-by-step README.md guide to help you through the process of setting up self-hosted Prometheus and Grafana to monitor your Azure Kubernetes Service (AKS) cluster.
 
 ### Prerequisites
