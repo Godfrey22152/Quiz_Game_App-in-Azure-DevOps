@@ -25,7 +25,7 @@ Setting up self-hosted Prometheus and Grafana to monitor your Azure Kubernetes S
 
 ## Detailed Execution Steps
 
-1. Configure kubectl to Connect to AKS
+1. **Configure kubectl to Connect to AKS**
 - First, connect kubectl to your AKS cluster from your local machine or Cloud Shell:
 
 ```bash
@@ -36,7 +36,7 @@ az aks get-credentials --resource-group <your-resource-group> --name <your-aks-c
 ```bash
 kubectl get nodes
 ```
-2. Create a Namespace for Monitoring
+2. **Create a Namespace for Monitoring**
 Create a namespace in your AKS cluster to separate your monitoring components:
 
 ``` bash
