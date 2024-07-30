@@ -65,15 +65,15 @@ kubectl get all --namespace monitoring
 You should see pods for Prometheus, Grafana, Alertmanager, and other components running.
 
 ### 6. Accessing Prometheus and Grafana
-- **Option 1:** To access Prometheus and Grafana dashboards, you can use port forwarding.
+**Option 1:** To access Prometheus and Grafana dashboards, you can use port forwarding.
 
-**Prometheus:**
+- **Prometheus:**
 ```bash
 kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheus 9090:9090
 ```
 Open a browser and go to `http://localhost:9090`.
 
-**Grafana:**
+- **Grafana:**
 ```bash
 kubectl port-forward -n monitoring svc/prometheus-grafana 3000:80
 ```
@@ -88,16 +88,16 @@ The default username is "admin". The Username and the password can be retrieved 
  ```bash
  kubectl get secret --namespace monitoring prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
  ```
-- **Option 2:** Alternative Method to Access Prometheus and Grafana.
+**Option 2:** Alternative Method to Access Prometheus and Grafana.
 Access via LoadBalancer:
 If port-forwarding is not working, you can expose the Prometheus and grafana service using a LoadBalancer.
 
-**Prometheus:**
+- **Prometheus:**
 ```bash
 kubectl patch svc prometheus-kube-prometheus-prometheus -n monitoring -p '{"spec": {"type": "LoadBalancer"}}'
 kubectl get svc prometheus-kube-prometheus-prometheus -n monitoring
 ```
-**Grafana:**
+- **Grafana:**
 ```bash
 kubectl patch svc prometheus-grafana -n monitoring -p '{"spec": {"type": "LoadBalancer"}}'
 kubectl get svc prometheus-grafana -n monitoring
@@ -140,17 +140,17 @@ The command will output JSON with the following details:
  - The password is your Client Secret.
  - The tenant is your Tenant ID.
 
-- Assign Reader Role to the Service Principal:
+- **Assign Reader Role to the Service Principal:**
 
 ```bash
 az role assignment create --role "Reader" --assignee <Client ID> --scope /subscriptions/<Subscription ID>/resourceGroups/<Resource Group>/providers/Microsoft.OperationalInsights/workspaces/<Log Analytics Workspace Name>
 ```
 Replace the placeholders with the actual values:
 
- - **<Client ID>:** The appId from the service principal creation or retrieval step.
- - **<Subscription ID>:** Your Azure subscription ID.
- - **<Resource Group>:** The resource group containing your Log Analytics workspace.
- - **<Log Analytics Workspace Name>:** The name of your Log Analytics workspace.
+ - **`<Client ID>`:** The appId from the service principal creation or retrieval step.
+ - **`<Subscription ID>`:** Your Azure subscription ID.
+ - **`<Resource Group>`:** The resource group containing your Log Analytics workspace.
+ - **`<Log Analytics Workspace Name>`:** The name of your Log Analytics workspace.
 
 ### 10. Create Data Source in Grafana
 - Configure Azure Monitor as a Data Source:
