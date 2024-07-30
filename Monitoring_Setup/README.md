@@ -17,11 +17,11 @@ Setting up self-hosted Prometheus and Grafana to monitor your Azure Kubernetes S
 ## Prerequisites
 1. Azure Kubernetes Service (AKS) cluster: Ensure you have an AKS cluster up and running.
 2. Environment Setup:
-- Local Machine:
- - Ensure you have kubectl and Helm installed on your local machine.
- - Your local machine should be configured to access your AKS cluster.
-- Cloud Shell:
- - You can use Azure Cloud Shell, which has kubectl and Helm pre-installed and configured to access your Azure resources.
+**- Local Machine:**
+   - Ensure you have kubectl and Helm installed on your local machine.
+   - Your local machine should be configured to access your AKS cluster.
+**- Cloud Shell:**
+   - You can use Azure Cloud Shell, which has kubectl and Helm pre-installed and configured to access your Azure resources.
 
 ## Detailed Execution Steps
 
