@@ -1,5 +1,5 @@
 # Quiz Game Web App Project
-This project is a comprehensive Quiz Application designed to run in a Docker container and deployable to Azure Kubernetes Service (AKS) using Azure DevOps CI/CD pipelines. The application uses MongoDB for data storage and Flask as the web framework.
+This project is a comprehensive Quiz Application designed to run in a Docker container and deployable to Azure Kubernetes Service (AKS) using Azure DevOps CI/CD pipelines and monitored using self-hosted Prometheus and Grafana. The application uses MongoDB for data storage and Flask as the web framework.
 
 ## Project Structure
 
