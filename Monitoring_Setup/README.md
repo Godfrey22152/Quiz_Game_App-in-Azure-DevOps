@@ -25,7 +25,7 @@ Setting up self-hosted Prometheus and Grafana to monitor your Azure Kubernetes S
 
 ## Detailed Execution Steps
 
-1. **Configure kubectl to Connect to AKS**
+### 1. Configure kubectl to Connect to AKS
 - First, connect kubectl to your AKS cluster from your local machine or Cloud Shell:
 
 ```bash
@@ -36,20 +36,20 @@ az aks get-credentials --resource-group <your-resource-group> --name <your-aks-c
 ```bash
 kubectl get nodes
 ```
-2. **Create a Namespace for Monitoring**
+### 2. Create a Namespace for Monitoring
 Create a namespace in your AKS cluster to separate your monitoring components:
 
 ``` bash
 kubectl create namespace monitoring
 ```
-3. Add Helm Repositories
+### 3. Add Helm Repositories
 Add the Helm repositories for Prometheus and Grafana:
 
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 ```
-4. Deploy Prometheus
+### 4. Deploy Prometheus
 Execute this command to deploy Prometheus in your AKS cluster:
 
 ```bash
@@ -57,14 +57,14 @@ helm install prometheus prometheus-community/kube-prometheus-stack --namespace m
 ```
 This command installs the kube-prometheus-stack which includes Prometheus, Alertmanager, and Grafana.
 
-5. Verify Prometheus and Grafana Deployment: Check all resources in Monitoring Namespace.
+### 5. Verify Prometheus and Grafana Deployment: Check all resources in Monitoring Namespace.
 
 ```bash
 kubectl get all --namespace monitoring 
 ```
 You should see pods for Prometheus, Grafana, Alertmanager, and other components running.
 
-6. Accessing Prometheus and Grafana
+### 6. Accessing Prometheus and Grafana
 - **Option 1:** To access Prometheus and Grafana dashboards, you can use port forwarding.
 
 **Prometheus:**
@@ -104,11 +104,11 @@ kubectl get svc prometheus-grafana -n monitoring
 ```
 After patching, you will get a new EXTERNAL-IP for your service. You can then access Prometheus and grafana using this IP address.
 
-7. Create a Log Analytics workspace if none exists:
+### 7. Create a Log Analytics workspace if none exists:
 - In the Azure Portal, select "Create a resource" and then search for "Log Analytics".
 - Follow the prompts to create a new Log Analytics workspace.
 
-8. Register the Azure Resource Manager API
+### 8. Register the Azure Resource Manager API
 - Check if the ARM API is registered:
  - Go to the Azure Portal.
  - Navigate to "Subscriptions" and select your subscription.
@@ -116,8 +116,8 @@ After patching, you will get a new EXTERNAL-IP for your service. You can then ac
  - Search for "Microsoft.Resources".
  - Ensure that it is registered. If it is not, click on "Register".
 
-9. Create a Service Principal and Assign Role
-- Create a Service Principal:
+### 9. Create a Service Principal and Assign Role
+- **Create a Service Principal:**
 Open Azure Cloud Shell or your local terminal with Azure CLI installed.
 Run the following command to create a service principal:
 
@@ -126,7 +126,7 @@ az ad sp create-for-rbac --name "<ServicePrincipalName>" --role Reader --scopes 
 ```
 Replace <ServicePrincipalName> with a name for your service principal and <SubscriptionID> with your Azure subscription ID.
 
-- Save the output:
+- **Save the output:**
 The command will output JSON with the following details:
 ```bash
 {
@@ -147,43 +147,44 @@ az role assignment create --role "Reader" --assignee <Client ID> --scope /subscr
 ```
 Replace the placeholders with the actual values:
 
- - <Client ID>: The appId from the service principal creation or retrieval step.
- - <Subscription ID>: Your Azure subscription ID.
- - <Resource Group>: The resource group containing your Log Analytics workspace.
- - <Log Analytics Workspace Name>: The name of your Log Analytics workspace.
+ - **<Client ID>:** The appId from the service principal creation or retrieval step.
+ - **<Subscription ID>:** Your Azure subscription ID.
+ - **<Resource Group>:** The resource group containing your Log Analytics workspace.
+ - **<Log Analytics Workspace Name>:** The name of your Log Analytics workspace.
 
-10. Create Data Source in Grafana
+### 10. Create Data Source in Grafana
 - Configure Azure Monitor as a Data Source:
- - In Grafana, go to "Configuration" -> "Data Sources".
- - Add a new data source and select "Azure Monitor".
- - Enter the required details such as Subscription ID, Tenant ID, Client ID, and Client Secret.
- - Click "Save & Test" to ensure the connection is working.
+  - In Grafana, go to "Configuration" -> "Data Sources".
+  - Add a new data source and select "Azure Monitor".
+  - Enter the required details such as Subscription ID, Tenant ID, Client ID, and Client Secret.
+  - Click "Save & Test" to ensure the connection is working.
 
 - Configure Prometheus as a Data Source (if applicable):
 
- - In Grafana, go to "Configuration" -> "Data Sources".
- - Add a new data source and select "Prometheus".
- - Enter the URL of your Prometheus server (e.g., http://localhost:9090 if using port-forwarding).
- - Click "Save & Test" to ensure the connection is working.
+  - In Grafana, go to "Configuration" -> "Data Sources".
+  - Add a new data source and select "Prometheus".
+  - Enter the URL of your Prometheus server (e.g., http://localhost:9090 if using port-forwarding).
+  - Click "Save & Test" to ensure the connection is working.
 
 ![Data Source In Grafana](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*bGQUEsCswqIXbJFCj1NZWQ.png)
 
-11. Import a Kubernetes Dashboard
-- First Dashboard import: Import Azure Monitor for Containers in Grafana
+
+### 11. Import a Kubernetes Dashboard
+- **First Dashboard import:** Import Azure Monitor for Containers in Grafana
 Go to Create and click import.
 Import Dashboard ID 10956 and load and finally import the “Azure Monitor for Containers — Metrics” Dashboard.
 
 ![Import Azure Monitor for Containers in Grafana](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*EbhsC7max_vhHd_Vc4KNEQ.png)
 
 
-- Second Dashboard Import: In Grafana, go to "Create" -> "Import".
+- **Second Dashboard Import:** In Grafana, go to "Create" -> "Import".
 You can use the dashboard ID from Grafana's dashboard library. For Kubernetes monitoring, a popular choice is dashboard ID 315, which is "Kubernetes cluster monitoring (via Prometheus)".
 
--**NOTE:**
+### NOTE:
 Select the Data Source:
 - During the import process, you will be prompted to select data sources for various metrics.
 - For metrics coming from Prometheus, select the Prometheus data source.
 - For metrics coming from Azure Monitor, select the Azure Monitor data source.
 
-**SUMMARY:**
+### SUMMARY:
 Dashboards give us a visual representation of the AKS cluster’s health, resource utilisation trends of specific application pods, network traffic flow across the cluster, and much more. Prometheus and Grafana are powerful monitoring tools for Kubernetes clusters, and Helm makes it simple to set up and get up and running in minutes.
