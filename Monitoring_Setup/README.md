@@ -150,7 +150,7 @@ After patching, you will get a new EXTERNAL-IP for your service. You can then ac
     - Ensure you can see metrics being collected (e.g., CPU usage, memory usage).
 
 ### 10. Create a Service Principal and Assign Role
-  - **Create a Service Principal:**
+- **Create a Service Principal:**
   Open Azure Cloud Shell or your local terminal with Azure CLI installed.
   Run the following command to create a service principal:
 
@@ -170,11 +170,11 @@ After patching, you will get a new EXTERNAL-IP for your service. You can then ac
     "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
   }
   ```
-   **The appId is your Client ID.**
-   **The password is your Client Secret.**
-   **The tenant is your Tenant ID.**
+     - The appId is your Client ID.
+     - The password is your Client Secret.
+     - The tenant is your Tenant ID.
 
-  - **Assign Reader Role to the Service Principal:**
+- **Assign Reader Role to the Service Principal:**
 
   ```bash
   az role assignment create --role "Reader" --assignee <Client ID> --scope /subscriptions/<Subscription ID>/resourceGroups/<Resource 
