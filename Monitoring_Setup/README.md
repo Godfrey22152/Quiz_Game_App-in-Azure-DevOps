@@ -161,6 +161,7 @@ After patching, you will get a new EXTERNAL-IP for your service. You can then ac
 
   - **Save the output:**
   The command will output JSON with the following details:
+
   ```bash
   {
     "appId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
@@ -169,9 +170,9 @@ After patching, you will get a new EXTERNAL-IP for your service. You can then ac
     "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
   }
   ```
-   - The appId is your Client ID.
-   - The password is your Client Secret.
-   - The tenant is your Tenant ID.
+   **The appId is your Client ID.**
+   **The password is your Client Secret.**
+   **The tenant is your Tenant ID.**
 
   - **Assign Reader Role to the Service Principal:**
 
