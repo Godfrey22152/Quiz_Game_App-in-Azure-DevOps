@@ -131,6 +131,7 @@ After patching, you will get a new EXTERNAL-IP for your service. You can then ac
   - **Check Logs in Log Analytics Workspace:**
     - Go to the Log Analytics workspace you selected in the diagnostic settings.
     - Navigate to "Logs" and run queries to verify that logs from your Kubernetes cluster are being collected:
+      
     **Container Metrics:**
     ```bash
     ContainerInventory
@@ -168,9 +169,9 @@ After patching, you will get a new EXTERNAL-IP for your service. You can then ac
     "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
   }
   ```
-   - The appId is your Client ID.
-   - The password is your Client Secret.
-   - The tenant is your Tenant ID.
+    - The appId is your Client ID.
+    - The password is your Client Secret.
+    - The tenant is your Tenant ID.
 
   - **Assign Reader Role to the Service Principal:**
 
