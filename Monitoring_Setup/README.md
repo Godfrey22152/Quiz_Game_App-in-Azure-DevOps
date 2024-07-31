@@ -116,69 +116,102 @@ After patching, you will get a new EXTERNAL-IP for your service. You can then ac
  - Search for "Microsoft.Resources".
  - Ensure that it is registered. If it is not, click on "Register".
 
-### 9. Create a Service Principal and Assign Role
-- **Create a Service Principal:**
-Open Azure Cloud Shell or your local terminal with Azure CLI installed.
-Run the following command to create a service principal:
+### 9. Set up diagnostic settings so that Azure Monitor can collect logs and metrics from your cluster.
+- **Configure Diagnostic Settings:**
+  - Navigate to "Kubernetes services" and select your cluster.
+  - Under "Monitoring", select "Diagnostic settings" and Click "Add diagnostic setting".
+  - Name the diagnostic setting (e.g., AKS-Diagnostics) and Select the logs and metrics you want to collect (e.g., ContainerInsights, KubePodInventory).
+  - Select your Log Analytics workspace as the destination and Click "Save".
+  - After setting up the diagnostic settings in the Azure Portal, verify them by running the Azure CLI command:
 
-```bash
-az ad sp create-for-rbac --name "<ServicePrincipalName>" --role Reader --scopes /subscriptions/<SubscriptionID>
-```
-Replace <ServicePrincipalName> with a name for your service principal and <SubscriptionID> with your Azure subscription ID.
+ ```bash
+  az monitor diagnostic-settings list --resource /subscriptions/<SubscriptionID>/resourceGroups/<ResourceGroup>/providers/Microsoft.ContainerService/managedClusters/<ClusterName>
+ ```
+- **Validate Data Collection:**
+  - **Check Logs in Log Analytics Workspace:**
+    - Go to the Log Analytics workspace you selected in the diagnostic settings.
+    - Navigate to "Logs" and run queries to verify that logs from your Kubernetes cluster are being collected:
+    **Container Metrics:**
+    ```bash
+    ContainerInventory
+    | where TimeGenerated > ago(1h)
+    | summarize avg(UsagePercentage) by Name, bin(TimeGenerated, 5m)
+    ```
+    **Node Metrics:**
+    ```bash
+    InsightsMetrics
+    | where Namespace == 'kubernetes' and Name == 'node_cpu_usage_seconds_total'
+    | summarize avg(CounterValue) by Node, bin(TimeGenerated, 5m)
+    ```
+  - **Check Metrics in Azure Monitor:**
+    - In the Azure Portal, navigate to "Metrics".
+    - Select your Log Analytics workspace or Kubernetes cluster.
+    - Ensure you can see metrics being collected (e.g., CPU usage, memory usage).
 
-- **Save the output:**
-The command will output JSON with the following details:
-```bash
-{
-  "appId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-  "displayName": "<ServicePrincipalName>",
-  "password": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-  "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-}
-```
- - The appId is your Client ID.
- - The password is your Client Secret.
- - The tenant is your Tenant ID.
+### 10. Create a Service Principal and Assign Role
+  - **Create a Service Principal:**
+  Open Azure Cloud Shell or your local terminal with Azure CLI installed.
+  Run the following command to create a service principal:
 
-- **Assign Reader Role to the Service Principal:**
+  ```bash
+  az ad sp create-for-rbac --name "<ServicePrincipalName>" --role Reader --scopes /subscriptions/<SubscriptionID>
+  ```
+  Replace <ServicePrincipalName> with a name for your service principal and <SubscriptionID> with your Azure subscription ID.
 
-```bash
-az role assignment create --role "Reader" --assignee <Client ID> --scope /subscriptions/<Subscription ID>/resourceGroups/<Resource Group>/providers/Microsoft.OperationalInsights/workspaces/<Log Analytics Workspace Name>
-```
-Replace the placeholders with the actual values:
+  - **Save the output:**
+  The command will output JSON with the following details:
+  ```bash
+  {
+    "appId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "displayName": "<ServicePrincipalName>",
+    "password": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+  }
+  ```
+   - The appId is your Client ID.
+   - The password is your Client Secret.
+   - The tenant is your Tenant ID.
 
- - **`<Client ID>`:** The appId from the service principal creation or retrieval step.
- - **`<Subscription ID>`:** Your Azure subscription ID.
- - **`<Resource Group>`:** The resource group containing your Log Analytics workspace.
- - **`<Log Analytics Workspace Name>`:** The name of your Log Analytics workspace.
+  - **Assign Reader Role to the Service Principal:**
 
-### 10. Create Data Source in Grafana
-- Configure Azure Monitor as a Data Source:
-  - In Grafana, go to "Configuration" -> "Data Sources".
-  - Add a new data source and select "Azure Monitor".
-  - Enter the required details such as Subscription ID, Tenant ID, Client ID, and Client Secret.
-  - Click "Save & Test" to ensure the connection is working.
+  ```bash
+  az role assignment create --role "Reader" --assignee <Client ID> --scope /subscriptions/<Subscription ID>/resourceGroups/<Resource 
+  Group>/providers/Microsoft.OperationalInsights/workspaces/<Log Analytics Workspace Name>
+  ```
+  Replace the placeholders with the actual values:
 
-- Configure Prometheus as a Data Source (if applicable):
+   - **`<Client ID>`:** The appId from the service principal creation or retrieval step.
+   - **`<Subscription ID>`:** Your Azure subscription ID.
+   - **`<Resource Group>`:** The resource group containing your Log Analytics workspace.
+   - **`<Log Analytics Workspace Name>`:** The name of your Log Analytics workspace.
 
-  - In Grafana, go to "Configuration" -> "Data Sources".
-  - Add a new data source and select "Prometheus".
-  - Enter the URL of your Prometheus server (e.g., http://localhost:9090 if using port-forwarding).
-  - Click "Save & Test" to ensure the connection is working.
+### 11. Create Data Source in Grafana
+  - Configure Azure Monitor as a Data Source:
+    - In Grafana, go to "Configuration" -> "Data Sources".
+    - Add a new data source and select "Azure Monitor".
+    - Enter the required details such as Subscription ID, Tenant ID, Client ID, and Client Secret.
+    - Click "Save & Test" to ensure the connection is working.
 
-![Data Source In Grafana](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*bGQUEsCswqIXbJFCj1NZWQ.png)
+  - Configure Prometheus as a Data Source (if applicable):
+
+    - In Grafana, go to "Configuration" -> "Data Sources".
+    - Add a new data source and select "Prometheus".
+    - Enter the URL of your Prometheus server (e.g., http://localhost:9090 if using port-forwarding).
+    - Click "Save & Test" to ensure the connection is working.
+
+  ![Data Source In Grafana](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*bGQUEsCswqIXbJFCj1NZWQ.png)
+
+### 12. Import a Kubernetes Dashboard
+  - **First Dashboard import:** Import Azure Monitor for Containers in Grafana
+  Go to Create and click import.
+  Import Dashboard ID 10956 and load and finally import the “Azure Monitor for Containers — Metrics” Dashboard.
+
+  ![Import Azure Monitor for Containers in Grafana](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*EbhsC7max_vhHd_Vc4KNEQ.png)
 
 
-### 11. Import a Kubernetes Dashboard
-- **First Dashboard import:** Import Azure Monitor for Containers in Grafana
-Go to Create and click import.
-Import Dashboard ID 10956 and load and finally import the “Azure Monitor for Containers — Metrics” Dashboard.
-
-![Import Azure Monitor for Containers in Grafana](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*EbhsC7max_vhHd_Vc4KNEQ.png)
-
-
-- **Second Dashboard Import:** In Grafana, go to "Create" -> "Import".
-You can use the dashboard ID from Grafana's dashboard library. For Kubernetes monitoring, a popular choice is dashboard ID 315, which is "Kubernetes cluster monitoring (via Prometheus)".
+  - **Second Dashboard Import:** In Grafana, go to "Create" -> "Import".
+  You can use the dashboard ID from Grafana's dashboard library. For Kubernetes monitoring, a popular choice is dashboard ID 315, which is "Kubernetes cluster monitoring 
+  (via Prometheus)".
 
 ### NOTE:
 Select the Data Source:
