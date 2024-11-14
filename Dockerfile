@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.11.9-alpine3.19
+FROM python:3.14.0a1-alpine3.19
 
 # Set the working directory to /app
 WORKDIR /app
